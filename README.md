@@ -8,3 +8,16 @@ This program is meant to be run on a CLI. First, make sure that you have the las
 
 # Features
 
+##  Customizing your Generated Files with a Stylesheet
+If you wanted to spice up the look of your generated HTML file(s) you are able to add the stylesheet of your choice. To use simply do `txt_to_html -s  https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css filename.txt` or `txt_to_html --stylesheet  https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css filename.txt` into your command line. This also works with folders instead of a single txt file.
+
+## Changinging the Default Output Path to a Specified one
+You can also set a different output path of your generated file(s). To use type `txt_to_html -o .\foldername filename.txt` or `txt_to_html --output .\foldername filename.txt` into your command line. This can also be done with folders instead of a single txt file.
+
+These features can all be used together. For example `txt_to_html -o test -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt` or `txt_to_html --output test --stylesheet https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt `
+
+### Additional Terminal Commands
+
+**Version** - To see the current version of the program you are running, type `txt_to_html -v` or `txt_tom_html --version` into your command line.
+
+**Help** - If you need additional help or a guide, you can type `txt_to_html -h` or `txt_to_html --help` into your command line.
