@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import \
     argparse  # using argparse allows us to properly take in arguments from the command line, and even accept things like --help or --version
 import os  # importing os to allow us to create a new directory on the system and walk into a directory
