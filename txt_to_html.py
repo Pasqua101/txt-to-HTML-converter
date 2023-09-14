@@ -20,7 +20,6 @@ def text_to_html(input_path, stylesheet, output_dir):
     try:
         if os.path.exists(input_path) and os.path.isdir(input_path):  # if the user inputted a directory then convert all the txt files to html:
             remove_output_dir(output_dir) # removing and/or creating the output_dir
-
             for filename in os.listdir(input_path): # for loop to convert each txt file to html
                 if filename.endswith(".txt"):  # making sure that if any other files exist in the folder that it only grabs the ones that end with .txt
                     output_file = os.path.splitext(filename)[0] + ".html" # creating the name of the output_file to have the name of the file currently being processed and end with .html
@@ -51,7 +50,7 @@ def text_to_html(input_path, stylesheet, output_dir):
                     with open(output_file, "w") as html: # opening the output html file for writing
                         html.write(html_contents)
 
-                print("File conversion was successful! Please look for the ", output_dir ," folder.") # printing success message
+            print("File conversion was successful! Please look for the ", output_dir," folder.") # printing success message
 
         elif input_path.endswith(".txt") and os.path.isfile(input_path):
             remove_output_dir(output_dir) # removing and/or creating the output_dir
