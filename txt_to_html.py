@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # NOTE: epilog allows for us to provide the user with an example of how to call on/run the program
     # Line of code to help assist the user with a brief description on how to use the program
     parser = argparse.ArgumentParser(description="Convert a text file to an HTML file.",
-                                     epilog="Example: python main.py input.txt or python main.py ./folder")
+                                     epilog="Example: python txt_to_html.py input.txt or python txt_to_html.py ./folder")
 
     # Line of code below will allow a --version or -v to work
     parser.add_argument("--version", "-v", action="version", version=f"%(prog)s {VERSION}")
