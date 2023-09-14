@@ -38,12 +38,24 @@ def text_to_html(input_path, stylesheet, output_dir):
                     html_contents += f"""\n \t<title>{title}</title>\n\t<meta name='viewport' content='width=device-width, initial-scale=1'>{f'<link rel="stylesheet" type="text/css" href="{stylesheet}">'}
                     \n</head>\n<body>\n"""
 
+                    in_paragraph = False  # Flag to track if we are inside a paragraph
                     for line in lines: # for loop to read through all the lines in the file and make changes if required
-                        if line == "\n":  # If there is a new line in the txt file, add the <br> tag
-                            html_contents += f"<br>\n"
-                        else:  # if not remove the newline terminator at the end of the line and add the <p> tag to the current line
-                            converted_line = line.replace("\n","")
-                            html_contents += f"<p>{converted_line}</p>\n"
+                        converted_line = line.strip()  # Remove leading/trailing whitespace, including newline characters
+
+                        if not in_paragraph: # if in_paragraph is set to False, create the begining of the p tag in html_contnets and set in_paragraph to true
+                            html_contents += "<p>"
+                            in_paragraph = True
+
+                        if line == "\n": # if the current line is a newline close the p tag and append it to then set in_paragraph to False
+                            html_contents += "</p>\n"
+                            in_paragraph = False
+
+                        else: # if the code is still in a line with text and is in a paragraph append the line to html_contents
+                            html_contents += f"{converted_line}"
+
+                    # Closing the last paragraph if the loop was still in the paragraph when finished
+                    if in_paragraph:
+                        html_contents += "</p>\n"
 
                     html_contents += f"</body>\n</html>"  # Adding in the closing part of the HTML
 
@@ -69,12 +81,24 @@ def text_to_html(input_path, stylesheet, output_dir):
             html_contents += f"""\n \t<title>{title}</title>\n\t<meta name='viewport' content='width=device-width, initial-scale=1'>{f'<link rel="stylesheet" type="text/css" href="{stylesheet}">'}
                                 \n</head>\n<body>\n"""
 
-            for line in lines: # for loop to read through all the lines in the file and make changes if required
-                if line == "\n": # if there is a new line add in the <br> tag
-                    html_contents += f"<br>"
-                else: # if not remove the newline terminator at the end of the line and add the <p> tag to the current line
-                    converted_line = line.replace("\n", "")
-                    html_contents += f"<p>{converted_line}</p>\n"
+            in_paragraph = False  # Flag to track if we are inside a paragraph
+            for line in lines:  # for loop to read through all the lines in the file and make changes if required
+                converted_line = line.strip()  # Remove leading/trailing whitespace, including newline characters
+
+                if not in_paragraph:  # if in_paragraph is set to False, create the begining of the p tag in html_contnets and set in_paragraph to true
+                    html_contents += "<p>"
+                    in_paragraph = True
+
+                if line == "\n":  # if the current line is a newline close the p tag and append it to then set in_paragraph to False
+                    html_contents += "</p>\n"
+                    in_paragraph = False
+
+                else:  # if the code is still in a line with text and is in a paragraph append the line to html_contents
+                    html_contents += f"{converted_line}"
+
+            # Closing the last paragraph if the loop was still in the paragraph when finished
+            if in_paragraph:
+                html_contents += "</p>\n"
 
             html_contents += f"</body>\n</html>"
 
