@@ -104,11 +104,11 @@ if __name__ == '__main__':
     parser.add_argument("input_path",
                         help="Path to the input text file or directory")  # The help keyword on this line and the line below  will allow the program to show the user the argument that is needed to run the program
 
-    # Optional argument to use the stylesheet feature
-    parser.add_argument("--stylesheet", "-s", help="Use if you want to add a stylesheet to the generated HTML file")
+    # Optional argument to use the stylesheet feature. metavar= removes "STYLESHEET" from showing up when the user types -h or --help
+    parser.add_argument("--stylesheet", "-s", metavar="<link>", help="Use if you want to add a stylesheet to the generated HTML file")
 
     # Optional argument to use the output directory feature
-    parser.add_argument("--output", "-o", help="Use if you want to change the destined output of the HTML files. Otherwise it will be sent to the til folder")
+    parser.add_argument("--output", "-o", metavar="<output_folder>", help="Use if you want to change the destined output of the HTML files. Otherwise it will be sent to the til folder")
 
     args = parser.parse_args() # parsing the arguments from the command line
 
