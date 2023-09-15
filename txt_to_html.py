@@ -19,9 +19,13 @@ def text_to_html(input_path, stylesheet, output_dir):
             remove_output_dir(output_dir)
             for filename in os.listdir(input_path):
                 if filename.endswith(".txt"):
-                    output_file = os.path.splitext(os.path.basename(input_path))[0] + ".html"  # Constructing the output file's path based on the name of the input file
+
+
+                    input_file = os.path.join(input_path, filename)
+                    output_file = os.path.splitext(os.path.basename(input_file))[0] + ".html"  # Constructing the output file's path based on the name of the input file
                     output_file = os.path.join(output_dir, output_file)
-                    input_file = input_path
+                    print(input_file)
+                    print(filename)
 
                     # opening the input file
                     with open(input_file, "r") as txt:
@@ -35,7 +39,7 @@ def text_to_html(input_path, stylesheet, output_dir):
 
                     in_paragraph = False  # Flag to track if we are inside a paragraph
                     for line in lines:
-                        converted_line = line.strip()
+                        converted_line = line
 
                         if not in_paragraph:  # if in_paragraph is set to False, create the begining of the p tag in html_contnets and set in_paragraph to true
                             html_contents += "<p>"
@@ -46,7 +50,8 @@ def text_to_html(input_path, stylesheet, output_dir):
                             in_paragraph = False
 
                         else:  # if the code is still in a line with text and is in a paragraph append the line to html_contents
-                            html_contents += f"{converted_line}"
+                            converted_line = line.replace("\n", " ")
+                            html_contents += f" {converted_line}"
 
                     # Closing the last paragraph if the loop was still in the paragraph when finished
                     if in_paragraph:
@@ -76,19 +81,16 @@ def text_to_html(input_path, stylesheet, output_dir):
 
             in_paragraph = False  # Flag to track if we are inside a paragraph
             for line in lines:
-                converted_line = line.strip()
-
+                converted_line = line
                 if not in_paragraph:  # if in_paragraph is set to False, create the begining of the p tag in html_contnets and set in_paragraph to true
                     html_contents += "<p>"
                     in_paragraph = True
-
                 if line == "\n":  # if the current line is a newline close the p tag and append it to then set in_paragraph to False
                     html_contents += "</p>\n"
                     in_paragraph = False
-
                 else:  # if the code is still in a line with text and is in a paragraph append the line to html_contents
-                    html_contents += f"{converted_line}"
-
+                    converted_line = line.replace("\n", "")
+                    html_contents += f" {converted_line}"
             # Closing the last paragraph if the loop was still in the paragraph when finished
             if in_paragraph:
                 html_contents += "</p>\n"
