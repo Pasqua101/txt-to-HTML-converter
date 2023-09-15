@@ -19,10 +19,9 @@ def text_to_html(input_path, stylesheet, output_dir):
             remove_output_dir(output_dir)
             for filename in os.listdir(input_path):
                 if filename.endswith(".txt"):
-                    output_file = os.path.splitext(filename)[
-                                      0] + ".html"  # creating the name of the output_file to have the name of the file currently being processed and end with .html
-                    input_file = os.path.join(input_path, filename)
+                    output_file = os.path.splitext(os.path.basename(input_path))[0] + ".html"  # Constructing the output file's path based on the name of the input file
                     output_file = os.path.join(output_dir, output_file)
+                    input_file = input_path
 
                     # opening the input file
                     with open(input_file, "r") as txt:
@@ -30,8 +29,7 @@ def text_to_html(input_path, stylesheet, output_dir):
 
                     html_contents = f"<html lang='en'>\n<head>\n\t<meta charset='utf-8'>\n"  # Creating the start of the html file
 
-                    title = os.path.splitext(os.path.basename(input_file))[
-                        0]  # Getting the file name and removing the path and txt extension so it can be used in the title tag
+                    title = os.path.splitext(os.path.basename(input_file))[0]  # Getting the file name and removing the path and txt extension so it can be used in the title tag
                     html_contents += f"""\n \t<title>{title}</title>\n\t<meta name='viewport' content='width=device-width, initial-scale=1'>{f'<link rel="stylesheet" type="text/css" href="{stylesheet}">'}
                     \n</head>\n<body>\n"""
 
@@ -64,10 +62,9 @@ def text_to_html(input_path, stylesheet, output_dir):
         elif input_path.endswith(".txt") and os.path.isfile(input_path):
             remove_output_dir(output_dir)
 
-            output_file = os.path.splitext(input_path)[
-                              0] + ".html"  # creating the name of the output_file to have the name of the file currently being processed and end with .html
-            input_file = input_path
+            output_file = os.path.splitext(os.path.basename(input_path))[0] + ".html" # Constructing the output file's path based on the name of the input file
             output_file = os.path.join(output_dir, output_file)
+            input_file = input_path
 
             with open(input_file, "r") as txt:
                 lines = txt.readlines()
