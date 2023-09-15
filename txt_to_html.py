@@ -20,12 +20,9 @@ def text_to_html(input_path, stylesheet, output_dir):
             for filename in os.listdir(input_path):
                 if filename.endswith(".txt"):
 
-
                     input_file = os.path.join(input_path, filename)
                     output_file = os.path.splitext(os.path.basename(input_file))[0] + ".html"  # Constructing the output file's path based on the name of the input file
                     output_file = os.path.join(output_dir, output_file)
-                    print(input_file)
-                    print(filename)
 
                     # opening the input file
                     with open(input_file, "r") as txt:
@@ -101,7 +98,7 @@ def text_to_html(input_path, stylesheet, output_dir):
                 html.write(html_contents)
             print("File conversion was successful! Please look for the ", output_dir, " folder.")
 
-        else:  # if the file/folder entered does not exist print this message
+        else:  # if the file/folder entered does not exist print error message
             print("The file/directory name does not exist. Please make sure you entered the correct name")
 
     except Exception as e:  # Throw an error if any kind of error happens
