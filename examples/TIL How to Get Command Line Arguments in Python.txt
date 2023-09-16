@@ -1,0 +1,18 @@
+Today I learned how to get command line arguments in python. It was actually quite simple to do. All I had to do was
+import the argparse library and use the ArgumentParser.
+To do this defined a variable like so parser = argparse.ArgumentParser().
+Parser would hold all the arguments provided from the user on the command line.
+I then discovered that I could hold a description of the program and an example of to how to use it like so parser = argparse.ArgumentParser(description="", epilogue="").
+Both description and epilogue would show up when -h or --help were entered on the command line. As its name suggests, description would be used to give a short explanation on how the program worked.
+While epilogue would show up at the end of the -h command with an example of how to run the program. This way people wouldn't have to refer to the README all the time.
+
+After that was done, I added in some arguments for the command line to take in. Defining the arguments was very simple, all I had do was parser.add_argument().
+Inside the brackets, I had to provide it with a string to name the argument. So I can then parse the argument to a variable. I could then use a link like help to give the user a help message for the argument.
+I then created additional arguments for -v/--version and the optional arguments. Both had the same setup process but had different links. For example, the -v argument
+would use the action="version" link. This would specify how the argument should be handled, so that when the user enter the -v argument it would respond with the name
+of the program and the version by using the variable that holds the current version number. Optional arguments had the same setup process, but also used an additional link.
+The link used was metavar, which would display an alternate name for what was needed to fulfill the input requirement of the optional argument. For example, when the user types in -h it would show the optional argument
+but then show in all caps STYLESHEET or OUTPUT. I wasn't a fan of this, so I used metavar to replace the STYLESHEET name with <link> and OUTPUT with <output_folder> to help make things a little more tidy.
+
+Once that was done, all that was left was to parse the arguments and declare it in variables. This too was really simple, all I had to do was input_path = parser.input_path.
+I really enjoyed learning about the argparse library, and I'm definitely looking forward to using it on different projects in the future. I'm also interested in seeing how I can take advantage of the command line in python.

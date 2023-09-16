@@ -1,0 +1,9 @@
+Today I learned how to use the rmtree method from the shutil library and the OS library. Both of them proved to be very helpful in the creation of my txt_to_html program.
+The rmtree method helped me with deleting the output directory completely. Before I tried rmtree, I tried another method however it wouldn't let me delete the folder if files existed in it.
+After a quick internet search I found out about rmtree, and it solved my problem. rmtree would delete the entire folder regardless of whether files were in the folder
+
+The next thing I learned was the OS library. The OS library allowed me to interact with the path of the files and folders. As well as using it to determine if a folder exists, and if the input_path is a directory or file.
+I also learned that I can use it to join a path with a filename. Which was pretty helpful for when a user would use a folder as the input path instead of a filename.
+
+While this TIL is shorter than the one about learning how to parse command line arguments, I still learned quite a bit. I discovered the both OS and shutil library, which uses the rmtree method.
+I haven't tapped into the full potential of both libraries. So I'm looking forward to learning more about them, and if any of the additional functions that exist in the libraries can benefit my program in future versions.
