@@ -1,5 +1,5 @@
 # txt-to-HTML-converter
-A conversion tool made for converting txt file to standard HTML.
+A conversion tool made for converting .txt and .md files to standard HTML.
 
 The main purpose of this program is to create TIL (Today I learned) HTML files for blogging and personal purposes. A TIL can be pretty useful to anyone creating one as they can write down important things that they learned about and share it with others, or just keep it for themselves as something to reference. However, you can also use it as a simple txt to HTML converter. 
 

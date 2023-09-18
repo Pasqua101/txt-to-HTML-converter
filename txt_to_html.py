@@ -118,12 +118,12 @@ def text_to_html(input_path, stylesheet, output_dir):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Convert a text file to an HTML file.",
+    parser = argparse.ArgumentParser(description="Convert a text or markdown file to an HTML file.",
                                      epilog="Example: python txt_to_html.py input.txt or python txt_to_html.py ./folder")
 
     parser.add_argument("--version", "-v", action="version", version=f"%(prog)s {VERSION}")
 
-    parser.add_argument("input_path", help="Path to the input text file or directory")
+    parser.add_argument("input_path", help="Path to the input file or directory")
 
     # Optional argument to use the stylesheet feature
     parser.add_argument("--stylesheet", "-s", metavar="<link>",
