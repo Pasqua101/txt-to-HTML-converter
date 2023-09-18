@@ -1,5 +1,6 @@
 import argparse
 import os
+import re
 from shutil import rmtree
 
 VERSION = "0.1"
@@ -11,8 +12,13 @@ def remove_output_dir(
         rmtree(output_dir)  # using rmtree to delete the directory even if it has files in it
 
     os.makedirs(output_dir)  # Re/creating the output directory
-
-
+   
+def parse_md(html_contents):
+    return re.sub(
+    r'\[(.+?)\]\(([^ ]+)\)', # Regex pattern to match .md link syntax and capture the text to display / the link
+    r'<a href=\2>\1</a>', # Replace all .md links with <a> tags with help from backreferences
+    html_contents)
+    
 def text_to_html(input_path, stylesheet, output_dir):
     try:
         if os.path.exists(input_path) and os.path.isdir(input_path):  # if the user inputted a directory
@@ -55,6 +61,9 @@ def text_to_html(input_path, stylesheet, output_dir):
                         html_contents += "</p>\n"
 
                     html_contents += f"</body>\n</html>"
+                    
+                    if filename.endswith(".md"):
+                        html_contents = parse_md(html_contents)
 
                     with open(output_file, "w") as html:
                         html.write(html_contents)
@@ -93,6 +102,9 @@ def text_to_html(input_path, stylesheet, output_dir):
                 html_contents += "</p>\n"
 
             html_contents += f"</body>\n</html>"
+            
+            if input_path.endswith(".md"):
+                html_contents = parse_md(html_contents)
 
             with open(output_file, "w") as html:
                 html.write(html_contents)
