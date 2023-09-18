@@ -18,7 +18,7 @@ def text_to_html(input_path, stylesheet, output_dir):
         if os.path.exists(input_path) and os.path.isdir(input_path):  # if the user inputted a directory
             remove_output_dir(output_dir)
             for filename in os.listdir(input_path):
-                if filename.endswith(".txt"):
+                if filename.endswith(".txt") or filename.endswith(".md"):
 
                     input_file = os.path.join(input_path, filename)
                     output_file = os.path.splitext(os.path.basename(input_file))[0] + ".html"  # Constructing the output file's path based on the name of the input file
@@ -61,7 +61,7 @@ def text_to_html(input_path, stylesheet, output_dir):
 
             print("File conversion was successful! Please look for the ", output_dir, " folder.")
 
-        elif input_path.endswith(".txt") and os.path.isfile(input_path):
+        elif (input_path.endswith(".txt") or input_path.endswith(".md")) and os.path.isfile(input_path):
             remove_output_dir(output_dir)
 
             output_file = os.path.splitext(os.path.basename(input_path))[0] + ".html" # Constructing the output file's path based on the name of the input file
