@@ -9,9 +9,10 @@ def parse_md(html_contents):
 
 def generate_duplicate_filename(output_dir, output_file):
     count = 2
-    while (os.path.exists(output_file)):
+    generated_filename = output_file
+    while (os.path.exists(generated_filename)):
         output_filename = os.path.splitext(os.path.basename(output_file))[0] + " (" + str(count) + ").html" 
-        output_file = os.path.join(output_dir, output_filename)
+        generated_filename = os.path.join(output_dir, output_filename)
         count = count + 1
-    
-    return output_file
+
+    return generated_filename
