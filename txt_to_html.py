@@ -1,9 +1,9 @@
 import argparse
 import os
 from shutil import rmtree
+from helper import *
 
 VERSION = "0.1"
-
 
 def remove_output_dir(
         output_dir):  # function to remove output directory if it exists and make a new one regardless of if it exists or not
@@ -11,18 +11,21 @@ def remove_output_dir(
         rmtree(output_dir)  # using rmtree to delete the directory even if it has files in it
 
     os.makedirs(output_dir)  # Re/creating the output directory
-
-
+    
 def text_to_html(input_path, stylesheet, output_dir):
     try:
         if os.path.exists(input_path) and os.path.isdir(input_path):  # if the user inputted a directory
             remove_output_dir(output_dir)
             for filename in os.listdir(input_path):
-                if filename.endswith(".txt"):
+                if filename.endswith(".txt") or filename.endswith(".md"):
 
                     input_file = os.path.join(input_path, filename)
                     output_file = os.path.splitext(os.path.basename(input_file))[0] + ".html"  # Constructing the output file's path based on the name of the input file
                     output_file = os.path.join(output_dir, output_file)
+                    print(output_file)
+                    
+                    if os.path.exists(output_file):
+                        output_file = generate_duplicate_filename(output_dir, output_file)
 
                     # opening the input file
                     with open(input_file, "r") as txt:
@@ -55,13 +58,16 @@ def text_to_html(input_path, stylesheet, output_dir):
                         html_contents += "</p>\n"
 
                     html_contents += f"</body>\n</html>"
+                    
+                    if filename.endswith(".md"):
+                        html_contents = parse_md(html_contents)
 
                     with open(output_file, "w") as html:
                         html.write(html_contents)
 
             print("File conversion was successful! Please look for the ", output_dir, " folder.")
 
-        elif input_path.endswith(".txt") and os.path.isfile(input_path):
+        elif (input_path.endswith(".txt") or input_path.endswith(".md")) and os.path.isfile(input_path):
             remove_output_dir(output_dir)
 
             output_file = os.path.splitext(os.path.basename(input_path))[0] + ".html" # Constructing the output file's path based on the name of the input file
@@ -93,6 +99,9 @@ def text_to_html(input_path, stylesheet, output_dir):
                 html_contents += "</p>\n"
 
             html_contents += f"</body>\n</html>"
+            
+            if input_path.endswith(".md"):
+                html_contents = parse_md(html_contents)
 
             with open(output_file, "w") as html:
                 html.write(html_contents)
@@ -106,12 +115,12 @@ def text_to_html(input_path, stylesheet, output_dir):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Convert a text file to an HTML file.",
+    parser = argparse.ArgumentParser(description="Convert a text or markdown file to an HTML file.",
                                      epilog="Example: python txt_to_html.py input.txt or python txt_to_html.py ./folder")
 
     parser.add_argument("--version", "-v", action="version", version=f"%(prog)s {VERSION}")
 
-    parser.add_argument("input_path", help="Path to the input text file or directory")
+    parser.add_argument("input_path", help="Path to the input file or directory")
 
     # Optional argument to use the stylesheet feature
     parser.add_argument("--stylesheet", "-s", metavar="<link>",
