@@ -1,10 +1,9 @@
 import argparse
 import os
-import re
 from shutil import rmtree
+from helper import parse_md
 
 VERSION = "0.1"
-
 
 def remove_output_dir(
         output_dir):  # function to remove output directory if it exists and make a new one regardless of if it exists or not
@@ -12,12 +11,6 @@ def remove_output_dir(
         rmtree(output_dir)  # using rmtree to delete the directory even if it has files in it
 
     os.makedirs(output_dir)  # Re/creating the output directory
-   
-def parse_md(html_contents):
-    return re.sub(
-    r'\[(.+?)\]\(([^ ]+)\)', # Regex pattern to match .md link syntax and capture the text to display / the link
-    r'<a href=\2>\1</a>', # Replace all .md links with <a> tags with help from backreferences
-    html_contents)
     
 def text_to_html(input_path, stylesheet, output_dir):
     try:
