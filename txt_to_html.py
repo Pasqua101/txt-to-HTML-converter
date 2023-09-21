@@ -1,7 +1,7 @@
 import argparse
 import os
 from shutil import rmtree
-from helper import parse_md
+from helper import *
 
 VERSION = "0.1"
 
@@ -22,6 +22,10 @@ def text_to_html(input_path, stylesheet, output_dir):
                     input_file = os.path.join(input_path, filename)
                     output_file = os.path.splitext(os.path.basename(input_file))[0] + ".html"  # Constructing the output file's path based on the name of the input file
                     output_file = os.path.join(output_dir, output_file)
+                    print(output_file)
+                    
+                    if os.path.exists(output_file):
+                        output_file = generate_duplicate_filename(output_dir, output_file)
 
                     # opening the input file
                     with open(input_file, "r") as txt:
