@@ -1,3 +1,5 @@
+import sys
+
 from helper import *
 import os
 import re
@@ -5,11 +7,11 @@ import re
 
 def text_to_html(input_path, stylesheet, output_dir, lang):
     try:
-        extension_check = input_path.endswith((".txt", ".md"))
         if os.path.exists(input_path) and os.path.isdir(input_path):  # if the user inputted a directory
             remove_output_dir(output_dir)
             for filename in os.listdir(input_path):
-                if filename.endswith(".txt") or filename.endswith(".md"):
+                extension_check = filename.endswith((".txt", ".md")) # loops through each file in the directory to check their extension. Returns True if the extenions matches
+                if extension_check:
 
                     input_file = os.path.join(input_path, filename)
                     output_file = os.path.splitext(os.path.basename(input_file))[
@@ -27,9 +29,9 @@ def text_to_html(input_path, stylesheet, output_dir, lang):
                     with open(output_file, "w") as html:
                         html.write(html_contents)
 
-            print("File conversion was successful! Please look for the ", output_dir, " folder.")
+            sys.exit(0)
 
-        elif extension_check and os.path.isfile(input_path):
+        elif input_path.endswith((".txt", ".md")) and os.path.isfile(input_path):
             remove_output_dir(output_dir)
 
             # Constructing the output file's path based on the name of the input file
@@ -39,15 +41,17 @@ def text_to_html(input_path, stylesheet, output_dir, lang):
 
             html_contents = html_processor(input_file, stylesheet, lang)
 
-            if extension_check:
+            if input_path.endswith(".md"):
                 html_contents = parse_md(html_contents)
 
             with open(output_file, "w") as html:
                 html.write(html_contents)
-            print("File conversion was successful! Please look for the ", output_dir, " folder.")
+
+            sys.exit(0)
 
         else:  # if the file/folder entered does not exist print error message
             print("The file/directory name does not exist. Please make sure you entered the correct name")
+            sys.exit(-1)
 
     except Exception as e:  # Throw an error if any kind of error happens
         print(f"An error occurred: {str(e)}")
