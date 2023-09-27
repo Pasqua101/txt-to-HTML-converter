@@ -54,10 +54,15 @@ def text_to_html(input_path, stylesheet, output_dir):
 
 
 def parse_md(html_contents):
-    return re.sub(
+
+    html_contents = re.sub(
     r'\[(.+?)\]\(([^ ]+)\)', # Regex pattern to match .md link syntax and capture the text to display / the link
     r'<a href=\2>\1</a>', # Replace all .md links with <a> tags with help from backreferences
     html_contents)
+
+    html_contents = re.sub(r"(`{1,3})(.*?)\1", r"<code>\2</code>", html_contents)
+
+    return html_contents
 
 def html_processor(input_file, stylesheet):
 

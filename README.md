@@ -16,6 +16,11 @@ You can also set a different output path of your generated file(s). To use type 
 
 These features can all be used together. For example `txt_to_html -o test -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt` or `txt_to_html --output test --stylesheet https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt `.
 
+# Markdown Features
+
+## Detecting Code Blocks
+The program is able to detect Markdown Code blocks like ``` `Hello World` ``` and convert to `<code> Hello World </code>` in HTML. 
+
 ### Additional Terminal Commands
 
 **Version** - To see the current version of the program you are running, type `txt_to_html -v` or `txt_tom_html --version` into your command line.
