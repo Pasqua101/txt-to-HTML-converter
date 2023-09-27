@@ -20,10 +20,15 @@ if __name__ == '__main__':
     parser.add_argument("--output", "-o", metavar="<output_folder>",
                         help="Use if you want to change the destined output of the HTML files. Otherwise it will be sent to the til folder")
 
+    # Optional argument to modify the lang attribute
+    parser.add_argument("--lang", "-l", metavar="<lang attribute>",
+                        help="Use if you want to indicate what language the input file is using for the HTML doc that will be generated")
+
     args = parser.parse_args()
 
     input_path = args.input_path
     stylesheet = args.stylesheet
     output_dir = args.output or "./til"  # If the user does not enter an output directory, it will assign the directory til
+    lang = args.lang or "en-CA"
 
-    text_to_html(input_path, stylesheet, output_dir)
+    text_to_html(input_path, stylesheet, output_dir, lang)

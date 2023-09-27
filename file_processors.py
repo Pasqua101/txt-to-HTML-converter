@@ -3,7 +3,7 @@ import os
 import re
 
 
-def text_to_html(input_path, stylesheet, output_dir):
+def text_to_html(input_path, stylesheet, output_dir, lang):
     try:
         extension_check = input_path.endswith((".txt", ".md"))
         if os.path.exists(input_path) and os.path.isdir(input_path):  # if the user inputted a directory
@@ -15,12 +15,11 @@ def text_to_html(input_path, stylesheet, output_dir):
                     output_file = os.path.splitext(os.path.basename(input_file))[
                                       0] + ".html"  # Constructing the output file's path based on the name of the input file
                     output_file = os.path.join(output_dir, output_file)
-                    print(output_file)
 
                     if os.path.exists(output_file):
                         output_file = generate_duplicate_filename(output_dir, output_file)
 
-                    html_contents = html_processor(input_file, stylesheet)
+                    html_contents = html_processor(input_file, stylesheet, lang)
 
                     if extension_check:
                         html_contents = parse_md(html_contents)
@@ -38,7 +37,7 @@ def text_to_html(input_path, stylesheet, output_dir):
             output_file = os.path.join(output_dir, output_file)
             input_file = input_path
 
-            html_contents = html_processor(input_file, stylesheet)
+            html_contents = html_processor(input_file, stylesheet, lang)
 
             if extension_check:
                 html_contents = parse_md(html_contents)
@@ -60,9 +59,9 @@ def parse_md(html_contents):
     r'<a href=\2>\1</a>', # Replace all .md links with <a> tags with help from backreferences
     html_contents)
 
-def html_processor(input_file, stylesheet):
+def html_processor(input_file, stylesheet, lang):
 
-    html_contents = html_creator(input_file, stylesheet)
+    html_contents = html_creator(input_file, stylesheet, lang)
 
     with open(input_file, "r") as txt:
         lines = txt.readlines()
