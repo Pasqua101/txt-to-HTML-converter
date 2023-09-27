@@ -21,6 +21,10 @@ This program has the ability to detect Markdown code blocks and convert it the `
 
 ## Customzing the lang attribute
 If you're writing your HTML file in a different language, you can customize the lang attribute of the HTML tag by using the `-l` or `--lang` argument like so, `txt_to_html -l fr filename.txt`. If you don't use the argument, then by default the program will set the attribute to `en-CA` for Canadian English.
+This program has the ability to detect Markdown code blocks and convert it the `<code>` tag in html. For example Markdown text that looks like this ``` `Hello World` ```, will show up like this `<code> Hello World </code>`.
+
+## Horizontal Rule
+If `---` is found in the Markdown file being converted. The program will convert it to the `<hr>` tag in HTML.
 
 These features can all be used together. For example `txt_to_html -o test -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt` or `txt_to_html --output test --stylesheet https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt `.
 
