@@ -10,10 +10,10 @@ def remove_output_dir(
 
     os.makedirs(output_dir)  # Re/creating the output directory
 
-def html_creator(input_file, stylesheet):
+def html_creator(input_file, stylesheet, lang):
 
     html_header = (f"<!DOCTYPE html>\n"
-                   f"<html lang='en'>\n"
+                   f"""<html lang="{lang}">\n"""
                    f"\t<head>\n"
                    f"\t\t<meta charset='utf-8'>\n")  # Creating the start of the html file
 
