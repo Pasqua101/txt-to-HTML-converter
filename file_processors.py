@@ -5,6 +5,7 @@ import re
 
 def text_to_html(input_path, stylesheet, output_dir):
     try:
+        extension_check = input_path.endswith((".txt", ".md"))
         if os.path.exists(input_path) and os.path.isdir(input_path):  # if the user inputted a directory
             remove_output_dir(output_dir)
             for filename in os.listdir(input_path):
@@ -21,7 +22,7 @@ def text_to_html(input_path, stylesheet, output_dir):
 
                     html_contents = html_processor(input_file, stylesheet)
 
-                    if filename.endswith(".md"):
+                    if extension_check:
                         html_contents = parse_md(html_contents)
 
                     with open(output_file, "w") as html:
@@ -29,7 +30,7 @@ def text_to_html(input_path, stylesheet, output_dir):
 
             print("File conversion was successful! Please look for the ", output_dir, " folder.")
 
-        elif (input_path.endswith(".txt") or input_path.endswith(".md")) and os.path.isfile(input_path):
+        elif extension_check and os.path.isfile(input_path):
             remove_output_dir(output_dir)
 
             # Constructing the output file's path based on the name of the input file
@@ -39,7 +40,7 @@ def text_to_html(input_path, stylesheet, output_dir):
 
             html_contents = html_processor(input_file, stylesheet)
 
-            if input_path.endswith(".md"):
+            if extension_check:
                 html_contents = parse_md(html_contents)
 
             with open(output_file, "w") as html:

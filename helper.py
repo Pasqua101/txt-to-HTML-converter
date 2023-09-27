@@ -20,8 +20,9 @@ def html_creator(input_file, stylesheet):
     # Getting the file name and removing the path and txt extension, so it can be used in the title tag
     title = os.path.splitext(os.path.basename(input_file))[0]
 
-    html_header += f"""\n \t\t<title>{title}</title>\n\t\t<meta name='viewport' content='width=device-width, initial-scale=1'>{f'<link rel="stylesheet" type="text/css" href="{stylesheet}">'}
-                       \n\t</head>\n\t<body>\n"""
+    html_header += f"""\n \t\t<title>{title}</title>\n\t\t<meta name='viewport' content='width=device-width, initial-scale=1'> 
+    \t{f'<link rel="stylesheet" type="text/css" href="{stylesheet}">'}
+    \n\t</head>\n\t<body>\n"""
 
     return html_header
 
