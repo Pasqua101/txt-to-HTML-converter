@@ -14,6 +14,11 @@ If you wanted to spice up the look of your generated HTML file(s) you are able t
 ## Changing the Default Output Path to a Specified one
 You can also set a different output path of your generated file(s). To use type `txt_to_html -o .\foldername filename.txt` or `txt_to_html --output .\foldername filename.txt` into your command line. This can also be done with folders instead of a single .txt or .md file.
 
+# Featues Available Only in Markdown
+
+## Code Blocks
+This program has the ability to detect Markdown code blocks and convert it the `<code>` tag in html. For example Markdown text that looks like this ``` `Hello World` ```, will show up like this `<code> Hello World </code>`
+
 These features can all be used together. For example `txt_to_html -o test -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt` or `txt_to_html --output test --stylesheet https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt `.
 
 ### Additional Terminal Commands
