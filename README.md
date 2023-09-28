@@ -16,9 +16,6 @@ You can also set a different output path of your generated file(s). To use type 
 
 # Featues Available Only in Markdown
 
-## Code Blocks
-This program has the ability to detect Markdown code blocks and convert it the `<code>` tag in html. For example Markdown text that looks like this ``` `Hello World` ```, will show up like this `<code> Hello World </code>`
-
 ## Customzing the lang attribute
 If you're writing your HTML file in a different language, you can customize the lang attribute of the HTML tag by using the `-l` or `--lang` argument like so, `txt_to_html -l fr filename.txt`. If you don't use the argument, then by default the program will set the attribute to `en-CA` for Canadian English.
 This program has the ability to detect Markdown code blocks and convert it the `<code>` tag in html. For example Markdown text that looks like this ``` `Hello World` ```, will show up like this `<code> Hello World </code>`.
@@ -28,10 +25,11 @@ If `---` is found in the Markdown file being converted. The program will convert
 
 These features can all be used together. For example `txt_to_html -o test -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt` or `txt_to_html --output test --stylesheet https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt `.
 
-# Markdown Features
-
 ## Detecting Code Blocks
-The program is able to detect Markdown Code blocks like ``` `Hello World` ``` and convert to `<code> Hello World </code>` in HTML. 
+This program has the ability to detect Markdown code blocks and convert it the `<code>` tag in html. For example Markdown text that looks like this ``` `Hello world` ```, will show up like this `<code>Hello world</code>` 
+
+## Detecting Bold Markdown
+The program is able to spot the use of bold Markdown. For example, this line `**Hello world**` would be converted to `<strong> Hello world </strong>` in HTML.
 
 ### Additional Terminal Commands
 
