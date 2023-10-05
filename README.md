@@ -14,6 +14,9 @@ If you wanted to spice up the look of your generated HTML file(s) you are able t
 ## Changing the Default Output Path to a Specified one
 You can also set a different output path of your generated file(s). To use type `txt_to_html -o .\foldername filename.txt` or `txt_to_html --output .\foldername filename.txt` into your command line. This can also be done with folders instead of a single .txt or .md file.
 
+## TOML file support
+You can easily combine a multitude of arguments in one handy TOML file. To use, create a TOML file and add the arguments to it, then type `txt_to_html -c filename.toml` or `txt_to_html --config filename.toml` into your command line.
+
 # Featues Available Only in Markdown
 
 ## Customzing the lang attribute

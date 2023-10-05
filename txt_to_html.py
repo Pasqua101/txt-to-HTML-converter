@@ -31,9 +31,27 @@ if __name__ == '__main__':
                         help="Use if you want to use a TOML config file to set the stylesheet, output, and lang attribute.")
 
     args = parser.parse_args()
-    input_path = args.input_path
-    stylesheet = args.stylesheet
-    output_dir = args.output or "./til"  # If the user does not enter an output directory, it will assign the directory til
-    lang = args.lang or "en-CA"
 
-    text_to_html(input_path, stylesheet, output_dir, lang)
+    input_path = args.input_path
+
+    if(args.config):
+        with open(args.config, "rb") as f:
+            try:
+                config = tomllib.load(f)
+            except tomllib.TOMLDecodeError as e: # If the TOML file is not formatted correctly, it will exit the program
+                print(f"Error decoding TOML file: {e}")
+                exit(-1)
+            try:
+                stylesheet = config["stylesheet"] or "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+                output_dir = config["output"] or "./til"
+                lang = config["lang"] or "en-CA"
+            except KeyError as e: # If any of the keys are not found in the TOML file, it will exit the program
+                print(f"Error: {e} not found in TOML file.")
+                exit(-1)
+            text_to_html(input_path, stylesheet, output_dir, lang)
+    else:
+        stylesheet = args.stylesheet or "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+        output_dir = args.output or "./til"  # If the user does not enter an output directory, it will assign the directory til
+        lang = args.lang or "en-CA"
+
+        text_to_html(input_path, stylesheet, output_dir, lang)
