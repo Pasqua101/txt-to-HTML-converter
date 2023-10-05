@@ -1,5 +1,7 @@
 import argparse
+import tomllib
 from file_processors import text_to_html
+
 
 VERSION = "0.1"
 
@@ -23,9 +25,12 @@ if __name__ == '__main__':
     # Optional argument to modify the lang attribute
     parser.add_argument("--lang", "-l", metavar="<lang attribute>",
                         help="Use if you want to indicate what language the input file is using for the HTML doc that will be generated")
+    
+    # Optional argument to utilize TOML config files for the stylesheet, output, and lang attribute
+    parser.add_argument("--config", "-c", metavar="<config.toml>",
+                        help="Use if you want to use a TOML config file to set the stylesheet, output, and lang attribute.")
 
     args = parser.parse_args()
-
     input_path = args.input_path
     stylesheet = args.stylesheet
     output_dir = args.output or "./til"  # If the user does not enter an output directory, it will assign the directory til
