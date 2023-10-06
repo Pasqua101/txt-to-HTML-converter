@@ -9,13 +9,13 @@ This program is meant to be run on a CLI. First, make sure that you have the lat
 # Features
 
 ##  Customizing your Generated Files with a Stylesheet
-If you wanted to spice up the look of your generated HTML file(s) you are able to add the stylesheet of your choice. To use simply do `txt_to_html -s  https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css filename.txt` or `txt_to_html --stylesheet  https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css filename.txt` into your command line. This also works with folders instead of a single .txt or .md file.
+If you wanted to spice up the look of your generated HTML file(s) you are able to add the stylesheet of your choice. To use simply do `python txt_to_html.py -s  https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css filename.txt` or `python txt_to_html.py --stylesheet  https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css filename.txt` into your command line. This also works with folders instead of a single .txt or .md file.
 
 ## Changing the Default Output Path to a Specified one
-You can also set a different output path of your generated file(s). To use type `txt_to_html -o .\foldername filename.txt` or `txt_to_html --output .\foldername filename.txt` into your command line. This can also be done with folders instead of a single .txt or .md file.
+You can also set a different output path of your generated file(s). To use type `python txt_to_html.py -o .\foldername filename.txt` or `python txt_to_html.py --output .\foldername filename.txt` into your command line. This can also be done with folders instead of a single .txt or .md file.
 
 ## TOML file support
-You can easily combine a multitude of arguments in one handy TOML file. To use, create a TOML file and add the arguments to it, then type `txt_to_html -c filename.toml` or `txt_to_html --config filename.toml` into your command line.
+You can easily combine a multitude of arguments in one handy TOML file. To use, create a TOML file and add the arguments to it, then type `python txt_to_html.py -c filename.toml` or `python txt_to_html.py --config filename.toml` into your command line.
 
 # Featues Available Only in Markdown
 
@@ -26,7 +26,7 @@ This program has the ability to detect Markdown code blocks and convert it the `
 ## Horizontal Rule
 If `---` is found in the Markdown file being converted. The program will convert it to the `<hr>` tag in HTML.
 
-These features can all be used together. For example `txt_to_html -o test -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt` or `txt_to_html --output test --stylesheet https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt `.
+These features can all be used together. For example `python txt_to_html.py -o test -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt` or `python txt_to_html.py --output test --stylesheet https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt `.
 
 ## Detecting Code Blocks
 This program has the ability to detect Markdown code blocks and convert it the `<code>` tag in html. For example Markdown text that looks like this ``` `Hello world` ```, will show up like this `<code>Hello world</code>` 
@@ -36,6 +36,6 @@ The program is able to spot the use of bold Markdown. For example, this line `**
 
 ### Additional Terminal Commands
 
-**Version** - To see the current version of the program you are running, type `txt_to_html -v` or `txt_tom_html --version` into your command line.
+**Version** - To see the current version of the program you are running, type `python txt_to_html.py -v` or `python txt_to_html.py --version` into your command line.
 
-**Help** - If you need additional help or a guide, you can type `txt_to_html -h` or `txt_to_html --help` into your command line.
+**Help** - If you need additional help or a guide, you can type `python txt_to_html.py -h` or `python txt_to_html.py --help` into your command line.
