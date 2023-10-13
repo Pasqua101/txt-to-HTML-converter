@@ -36,3 +36,11 @@ def generate_duplicate_filename(output_dir, output_file):
         count = count + 1
 
     return generated_filename
+
+def extension_checker(filename): # checks the extension name of files
+    return filename.endswith((".txt", ".md"))
+
+def output_file_creator(input_file, output_dir):
+    output_file = os.path.splitext(os.path.basename(input_file))[0] + ".html"  # Constructing the output file's path based on the name of the input file
+    output_file = os.path.join(output_dir, output_file)
+    return output_file
