@@ -5,7 +5,7 @@ import os
 import re
 
 
-def text_to_html(input_path, stylesheet, output_dir, lang):
+def text_to_html(input_path, stylesheet, output_dir, lang, sidebar): # Takes in all arguments from the command line
     try:
         if os.path.exists(input_path) and os.path.isdir(input_path):  # if the user inputted a directory
             remove_output_dir(output_dir)
@@ -17,28 +17,28 @@ def text_to_html(input_path, stylesheet, output_dir, lang):
                     input_file = os.path.join(input_path, filename)
                     output_file = output_file_creator(input_file, output_dir)
 
-                    if os.path.exists(output_file):
+                    if os.path.exists(output_file): # Step 1: if the created output file already exists generate a duplicate
                         output_file = generate_duplicate_filename(output_dir, output_file)
 
-                    html_contents = html_processor(input_file, stylesheet, lang)
+                    html_contents = html_processor(input_file, stylesheet, lang, sidebar)  # Step 2: Start the conversion of the file
 
-                    check_md_and_write(input_file, html_contents)
+                    check_md_and_write(input_file, html_contents) # Step 3: Checks to see if the processed input file is a markdown file, if it is convert any missed Markdown syntax
 
-                    write_to_html(output_file, html_contents)
+                    write_to_html(output_file, html_contents) # Step 4: Write to HTML contents to the output file
 
             sys.exit(0)
 
-        elif extension_checker(input_path) and os.path.isfile(input_path):
+        elif extension_checker(input_path) and os.path.isfile(input_path): # if the user enters only a file
             remove_output_dir(output_dir)
 
             input_file = input_path
             output_file = output_file_creator(input_file, output_dir)
 
-            html_contents = html_processor(input_file, stylesheet, lang)
+            html_contents = html_processor(input_file, stylesheet, lang, sidebar) # Step 1: Start the conversion of the file
 
-            check_md_and_write(input_file, html_contents)
+            check_md_and_write(input_file, html_contents) # Step 2: Checks to see if the processed input file is a markdown file, if it is convert any missed Markdown synt
 
-            write_to_html(output_file, html_contents)
+            write_to_html(output_file, html_contents) # Step 3: Write to HTML contents to the output file
 
             sys.exit(0)
 
@@ -68,8 +68,8 @@ def check_md_and_write(filename, html_contents):
                                html_contents)  # Regex to spot bold in Markdown and convert the text inside it (group 1) to HTML
 
         return html_contents
-def html_processor(input_file, stylesheet, lang):
-    html_contents = html_creator(input_file, stylesheet, lang)
+def html_processor(input_file, stylesheet, lang, sidebar):
+    html_contents = html_creator(input_file, stylesheet, lang, sidebar)
 
     with open(input_file, "r") as txt:
         lines = txt.readlines()

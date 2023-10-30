@@ -1,6 +1,7 @@
 import os
+import sys
 from shutil import rmtree
-
+from sidebar import table_of_contents
 
 
 def remove_output_dir(
@@ -10,7 +11,13 @@ def remove_output_dir(
 
     os.makedirs(output_dir)  # Re/creating the output directory
 
-def html_creator(input_file, stylesheet, lang):
+def html_creator(input_file, stylesheet, lang, sidebar):
+
+    if os.path.isfile(sidebar):
+        generated_sidebar = generate_sidebar(sidebar)
+    else:
+        print("The sidebar does not exist")
+        sys.exit(-1)
 
     html_header = (f"<!DOCTYPE html>\n"
                    f"""<html lang="{lang}">\n"""
@@ -22,10 +29,17 @@ def html_creator(input_file, stylesheet, lang):
 
     html_header += f"""\n \t\t<title>{title}</title>\n\t\t<meta name='viewport' content='width=device-width, initial-scale=1'> 
     \t{f'<link rel="stylesheet" type="text/css" href="{stylesheet}">'}
-    \n\t</head>\n\t<body>\n"""
+    \n\t</head>\n\t<body>\n {generated_sidebar} \n"""
 
     return html_header
 
+def generate_sidebar(sidebar):
+    sidebar_html = "<nav><ul>"
+    for item in table_of_contents:
+        if "label" in item and "url" in item:
+            sidebar_html += f'<li><a href="{item["url"]}">{item["label"]}</a></li>'
+    sidebar_html += "</ul></nav>"
+    return sidebar_html
 
 def generate_duplicate_filename(output_dir, output_file):
     count = 2

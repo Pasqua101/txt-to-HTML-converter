@@ -1,4 +1,4 @@
 table_of_contents = [
-    {'label' : 'Home', 'url' : '/'},
-    {'label' : 'About', 'url' : '/about'}
+    {'label' : 'Home', 'url' : 'index.html'},
+    {'label' : 'About', 'url' : 'about.html'}
 ]
