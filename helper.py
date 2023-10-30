@@ -35,7 +35,7 @@ def html_creator(input_file, stylesheet, lang, sidebar):
 
 def generate_sidebar(sidebar):
     if os.path.isfile(sidebar): # while the code reads the table of contents directly from the sidebar file, we still have this check in case the sidebar is removed
-        sidebar_html = "\t\t<nav>\n\t\t\t<ul>\n"
+        sidebar_html = "\t\tTable of Contents\n\t\t<nav>\n\t\t\t<ul>\n"
         for item in table_of_contents:
             if "label" in item and "url" in item:
                 sidebar_html += f'\t\t\t\t<li><a href="{item["url"]}">{item["label"]}</a></li>\n'
