@@ -17,6 +17,9 @@ You can also set a different output path of your generated file(s). To use type 
 ## TOML file support
 You can easily combine a multitude of arguments in one handy TOML file. To use, create a TOML file and add the arguments to it, then type `python txt_to_html.py -c filename.toml` or `python txt_to_html.py --config filename.toml` into your command line.
 
+## Table of Contents (Preview)
+You can create a table of contents with the sidebar.py file. To use, type `python txt_to_html.py -sb sidebar.py filename.txt` or `python txt_to_html.py --sidebar sidebar.py filename.txt`. Just make sure that in the sidebar.py you have updated the label and url to match the files you're generating (refer to the sidebar.py file to see the structure of the file). This argument also works with TOML config files. The feature is in a preview mode right now, as in the future I would like to try and update it with the ability to make a sidebar instead of just a table of contents.  
+
 # Features Available Only in Markdown
 
 ## Customizing the lang attribute
