@@ -13,11 +13,8 @@ def remove_output_dir(
 
 def html_creator(input_file, stylesheet, lang, sidebar):
 
-    if os.path.isfile(sidebar):
-        generated_sidebar = generate_sidebar(sidebar)
-    else:
-        print("The sidebar does not exist")
-        sys.exit(-1)
+
+    generated_sidebar = generate_sidebar(sidebar) if sidebar is not None else None
 
     html_header = (f"<!DOCTYPE html>\n"
                    f"""<html lang="{lang}">\n"""
@@ -29,17 +26,24 @@ def html_creator(input_file, stylesheet, lang, sidebar):
 
     html_header += f"""\n \t\t<title>{title}</title>\n\t\t<meta name='viewport' content='width=device-width, initial-scale=1'> 
     \t{f'<link rel="stylesheet" type="text/css" href="{stylesheet}">'}
-    \n\t</head>\n\t<body>\n {generated_sidebar} \n"""
+    \n\t</head>\n\t<body>\n"""
+
+    if generated_sidebar is not None:
+        html_header += f"{generated_sidebar} \n"
 
     return html_header
 
 def generate_sidebar(sidebar):
-    sidebar_html = "<nav><ul>"
-    for item in table_of_contents:
-        if "label" in item and "url" in item:
-            sidebar_html += f'<li><a href="{item["url"]}">{item["label"]}</a></li>'
-    sidebar_html += "</ul></nav>"
-    return sidebar_html
+    if os.path.isfile(sidebar): # while the code reads the table of contents directly from the sidebar file, we still have this check in case the sidebar is removed
+        sidebar_html = "\t\t<nav>\n\t\t\t<ul>\n"
+        for item in table_of_contents:
+            if "label" in item and "url" in item:
+                sidebar_html += f'\t\t\t\t<li><a href="{item["url"]}">{item["label"]}</a></li>\n'
+        sidebar_html += "\t\t\t</ul>\n\t\t</nav>"
+        return sidebar_html
+    else:
+        print("Sidebar must be a file or was not found")
+        sys.exit(-1)
 
 def generate_duplicate_filename(output_dir, output_file):
     count = 2

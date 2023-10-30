@@ -68,7 +68,7 @@ def check_md_and_write(filename, html_contents):
                                html_contents)  # Regex to spot bold in Markdown and convert the text inside it (group 1) to HTML
 
         return html_contents
-def html_processor(input_file, stylesheet, lang, sidebar):
+def html_processor(input_file, stylesheet, lang, sidebar): #TODO: ** ** parsing is not working the way it should. Check out issue #16, which is when it was implemented. Compare it with refactoring branch
     html_contents = html_creator(input_file, stylesheet, lang, sidebar)
 
     with open(input_file, "r") as txt:

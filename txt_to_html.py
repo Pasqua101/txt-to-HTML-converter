@@ -31,7 +31,7 @@ if __name__ == '__main__':
                         help="Use if you want to use a TOML config file to set the stylesheet, output, and lang attribute.")
 
     # Optional argument to utilize sidebar creation for large websites
-    parser.add_argument("--sidebar", "-t", metavar="<sidebar.py>",
+    parser.add_argument("--sidebar", "-sb", metavar="<sidebar.py>",
                         help="Use if you want to create a table of contents/sidebar for your website to use.")
 
     args = parser.parse_args()
@@ -49,7 +49,7 @@ if __name__ == '__main__':
                 stylesheet = config["stylesheet"] or "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
                 output_dir = config["output"] or "./til"
                 lang = config["lang"] or "en-CA"
-                sidebar = config["sidebar"] or ''
+                sidebar = config["sidebar"]
             except KeyError as e: # If any of the keys are not found in the TOML file, it will exit the program
                 print(f"Error: {e} not found in TOML file.")
                 exit(-1)
@@ -58,5 +58,5 @@ if __name__ == '__main__':
         stylesheet = args.stylesheet or "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
         output_dir = args.output or "./til"  # If the user does not enter an output directory, it will assign the directory til
         lang = args.lang or "en-CA"
-        sidebar = args.sidebar or ''
+        sidebar = args.sidebar
         text_to_html(input_path, stylesheet, output_dir, lang, sidebar)

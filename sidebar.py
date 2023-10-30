@@ -1,4 +1,4 @@
 table_of_contents = [
-    {'label' : 'Home', 'url' : 'index.html'},
-    {'label' : 'About', 'url' : 'about.html'}
+    {'label' : 'TIL How to Get Command Line Arguments in Python', 'url' : 'TIL How to Get Command Line Arguments in Python.html'},
+    {'label' : 'TIL rmtree and os Library', 'url' : 'TIL rmtree and os Library.html'}
 ]
