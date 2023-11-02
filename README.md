@@ -1,44 +1,67 @@
-# txt-to-HTML-converter
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+# TXT to HTML Converter
 A conversion tool made for converting .txt and .md files to standard HTML.
 
-The main purpose of this program is to create TIL (Today I learned) HTML files for blogging and personal purposes. A TIL can be pretty useful to anyone creating one as they can write down important things that they learned about and share it with others, or just keep it for themselves as something to reference. However, you can also use it as a simple .txt or .md  to HTML converter. 
+The main purpose of this program is to create TIL (Today I learned) HTML files for blogging and personal purposes. A TIL can be pretty useful to anyone creating one as they can write down important things that they learned about and share it with others, or just keep it for themselves as something to reference. However, you can also use it as a simple .txt or .md  to HTML converter. For setup look at the setup section in the CONTRIBUTING.md file.
 
-# How to Use
-This program is meant to be run on a CLI. First, make sure that you have the latest version of python installed. You can get the latest version from [here](https://www.python.org/downloads/). Once python is installed you can call on the program in your terminal or command line by doing so `python txt_to_html.py filename.txt` or `python txt_to_html.py foldername`. **Note**: Running this program will delete the output folder, so it can be recreated with updated files. So please make sure you are backing up any html files you may not want deleted in the specified output folder.
+### Table of Contents
+ - [Features](#features)
+ - [Optional Arguments](#optional-arguments)
+ - [Usage](#usage)
 
 # Features
+ - Users can specify a file or folder containing md or txt files for HTML conversion.
+ - A stylesheet is added by default to the generated files.
+ - TOML file support.
+ - Markdown Only Features:
+   - Detecting and converting code blocks to HTML `<code>` tag.
+   - Detecting and converting bold Markdown syntax to HTML `<strong>` tag.
+   - Detecting and converting horizontal rule Markdown syntax to HTML `<hr>` tag.
 
-##  Customizing your Generated Files with a Stylesheet
-If you wanted to spice up the look of your generated HTML file(s) you are able to add the stylesheet of your choice. To use simply do `python txt_to_html.py -s  https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css filename.txt` or `python txt_to_html.py --stylesheet  https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css filename.txt` into your command line. This also works with folders instead of a single .txt or .md file.
+## Optional Arguments
 
-## Changing the Default Output Path to a Specified one
-You can also set a different output path of your generated file(s). To use type `python txt_to_html.py -o .\foldername filename.txt` or `python txt_to_html.py --output .\foldername filename.txt` into your command line. This can also be done with folders instead of a single .txt or .md file.
+| Argument                                  | Purpose                                                                                                       |
+|-------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| -s, --stylesheet <CSS stylesheet URL>     | Changes the default CSS stylesheet provided for the generated files                                           |
+| -l, --lang <lang attribute>               | Specifies language used when generating HTML files. If not used, the default will be en-CA                    |
+| -c, --config <path to config.toml file>   | Allows for multiple arguments to be used at once, without having to type it all into a CLI                    |
+| -o, --output <foldername>                 | Specifies a different output directory for the generated HTML files, instead of the default TIL directory     |
+| -sb, --sidebar <path to siderbar.py file> | Currently in preview, but generates a table of contents for you based on the already provided sidebar.py file |
+| -v, --version                             | Displays program name and current versions                                                                    |
+| -h, --help                                | Provides help on the CLI explaining arguments and shows an example of execution                               |
 
-## TOML file support
-You can easily combine a multitude of arguments in one handy TOML file. To use, create a TOML file and add the arguments to it, then type `python txt_to_html.py -c filename.toml` or `python txt_to_html.py --config filename.toml` into your command line.
+## Usage
+Customizing the Stylesheet
 
-## Table of Contents (Preview)
-You can create a table of contents with the sidebar.py file. To use, type `python txt_to_html.py -sb sidebar.py filename.txt` or `python txt_to_html.py --sidebar sidebar.py filename.txt`. Just make sure that in the sidebar.py you have updated the label and url to match the files you're generating (refer to the sidebar.py file to see the structure of the file). This argument also works with TOML config files. The feature is in a preview mode right now, as in the future I would like to try and update it with the ability to make a sidebar instead of just a table of contents.  
+`python txt_to_html.py -s  https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css filename.txt` or `python txt_to_html.py --stylesheet  https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css filename.txt`
 
-# Features Available Only in Markdown
+Changing the output directory
 
-## Customizing the lang attribute
-If you're writing your HTML file in a different language, you can customize the lang attribute of the HTML tag by using the `-l` or `--lang` argument like so, `txt_to_html -l fr filename.txt`. If you don't use the argument, then by default the program will set the attribute to `en-CA` for Canadian English.
-This program has the ability to detect Markdown code blocks and convert it the `<code>` tag in html. For example Markdown text that looks like this ``` `Hello World` ```, will show up like this `<code> Hello World </code>`.
+`python txt_to_html.py -o .\foldername filename.txt` or `python txt_to_html.py --output .\foldername filename.txt` 
 
-## Horizontal Rule
-If `---` is found in the Markdown file being converted. The program will convert it to the `<hr>` tag in HTML.
+Using a TOML config file
 
-These features can all be used together. For example `python txt_to_html.py -o test -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt` or `python txt_to_html.py --output test --stylesheet https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css .\filename.txt `.
+`python txt_to_html.py -c filename.toml` or `python txt_to_html.py --config filename.toml`
 
-## Detecting Code Blocks
-This program has the ability to detect Markdown code blocks and convert it the `<code>` tag in html. For example Markdown text that looks like this ``` `Hello world` ```, will show up like this `<code>Hello world</code>` 
+Generating a table of contents (sidebar)
 
-## Detecting Bold Markdown
-The program is able to spot the use of bold Markdown. For example, this line `**Hello world**` would be converted to `<strong> Hello world </strong>` in HTML.
+`python txt_to_html.py -sb sidebar.py filename.txt` or `python txt_to_html.py --sidebar sidebar.py filename.txt`
 
-### Additional Terminal Commands
+Changing the lang attribute
 
-**Version** - To see the current version of the program you are running, type `python txt_to_html.py -v` or `python txt_to_html.py --version` into your command line.
+`python txt_to_html -l fr filename.txt` or `python txt_to_html --lang fr filename.txt`
 
-**Help** - If you need additional help or a guide, you can type `python txt_to_html.py -h` or `python txt_to_html.py --help` into your command line.
+
+All the examples above can be used together on the CLI or in a TOML config file. 
+
+Checking the version of TXT to HTML Converter
+
+`python txt_to_html.py -v` or `python txt_to_html.py --version`
+
+Getting help for TXT to HTML Converter
+
+`python txt_to_html.py -h` or `python txt_to_html.py --help`
+
+
+Example output of the program can be found in the examples folder.

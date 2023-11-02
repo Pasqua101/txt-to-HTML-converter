@@ -1,0 +1,30 @@
+[tool.black]
+# excludes the sidebar.py file from being formatted
+extend-exclude = '^/sidebar.py'
+
+[tool.ruff.lint]
+select = [
+  # pycodestyle
+  "E",
+  # Pyflakes
+  "F",
+  # pyupgrade
+  "UP",
+  # flake8-bugbear
+  "B",
+  # flake8-simplify
+  "SIM",
+  # isort
+  "I",
+]
+# Asking ruff to ignore the number of characters per line. PyCharm IDE already takes care of it.
+ignore = ["E501"]
+#Exclude certain files and folders from linting
+exclude = [
+    ".git",
+    ".examples",
+    ".app",
+    "sidebar.py",
+    "til",
+    ".ruff_cache",
+]
