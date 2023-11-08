@@ -33,7 +33,7 @@ if __name__ == "__main__":
         "-o",
         metavar="<output_folder>",
         help="Use if you want to change the destined output of the HTML files. Otherwise it will be sent to the til "
-             "folder",
+        "folder",
     )
 
     # Optional argument to modify the lang attribute
@@ -42,7 +42,7 @@ if __name__ == "__main__":
         "-l",
         metavar="<lang attribute>",
         help="Use if you want to indicate what language the input file "
-             "is using for the HTML doc that will be generated",
+        "is using for the HTML doc that will be generated",
     )
 
     # Optional argument to utilize TOML config files for the stylesheet, output, and lang attribute
@@ -87,7 +87,8 @@ if __name__ == "__main__":
             ) as e:  # If any of the keys are not found in the TOML file, it will exit the program
                 print(f"Error: {e} not found in TOML file.")
                 exit(-1)
-            text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
+            # text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
+            text_to_html(input_path, stylesheet, output_dir, lang)
     else:
         stylesheet = (
             args.stylesheet or "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
@@ -97,4 +98,5 @@ if __name__ == "__main__":
         )  # If the user does not enter an output directory, it will assign the directory til
         lang = args.lang or "en-CA"
         sidebar = args.sidebar
-        text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
+        # text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
+        text_to_html(input_path, stylesheet, output_dir, lang)

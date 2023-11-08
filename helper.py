@@ -81,8 +81,11 @@ def extension_checker(filename):  # checks the extension name of files
 
 
 def output_file_creator(input_file, output_dir):
-    output_file = (
-        os.path.splitext(os.path.basename(input_file))[0] + ".html"
-    )  # Constructing the output file's path based on the name of the input file
-    output_file = os.path.join(output_dir, output_file)
-    return output_file
+    try:
+        output_file = (
+            os.path.splitext(os.path.basename(input_file))[0] + ".html"
+        )  # Constructing the output file's path based on the name of the input file
+        output_file = os.path.join(output_dir, output_file)
+        return output_file
+    except Exception as e:
+        raise Exception(f"Unable to create output file: {e}")

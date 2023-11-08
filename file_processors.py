@@ -12,7 +12,7 @@ from helper import (
 
 
 def text_to_html(
-    input_path, stylesheet, output_dir, lang, sidebar
+    input_path, stylesheet, output_dir, lang, sidebar=None
 ):  # Takes in all arguments from the command line
     try:
         if os.path.exists(input_path) and os.path.isdir(
@@ -41,7 +41,8 @@ def text_to_html(
 
                     # Step 3: Checks to see if the processed input file is a markdown file,
                     # if it is convert any missed Markdown syntax
-                    check_md_and_write(input_file, html_contents)
+                    if input_file.endswith(".md"):
+                        html_contents = parse_md(html_contents)
 
                     # Step 4: Write to HTML contents to the output file
                     write_to_html(output_file, html_contents)
@@ -61,7 +62,8 @@ def text_to_html(
 
             # Step 2: Checks to see if the processed input file is a markdown file,
             # if it is convert any missed Markdown syntax
-            check_md_and_write(input_file, html_contents)
+            if input_file.endswith(".md"):
+                html_contents = parse_md(html_contents)
 
             # Step 3: Write to HTML contents to the output file
             write_to_html(output_file, html_contents)
@@ -75,41 +77,38 @@ def text_to_html(
             sys.exit(-1)
 
     except Exception as e:  # Throw an error if any kind of error happens
-        print(f"An error occurred: {str(e)}")
+        raise Exception(f"An error occurred: {str(e)}")
 
 
-def check_md_and_write(filename, html_contents):
-    if filename.endswith(".md"):
-        html_contents = re.sub(
-            r"\[(.+?)\]\(([^ ]+)\)",
-            # Regex pattern to match .md link syntax and capture the text to display / the link
-            r"<a href=\2>\1</a>",  # Replace all .md links with <a> tags with help from back references
-            html_contents,
-        )
+def parse_md(html_contents):
+    html_contents = re.sub(
+        r"\[(.+?)\]\(([^ ]+)\)",  # Regex pattern to match .md link syntax and capture the text to display / the link
+        r"<a href=\2>\1</a>",  # Replace all .md links with <a> tags with help from backreferences
+        html_contents,
+    )
 
-        html_contents = re.sub(
-            r"(`{1,3})(.*?)\1", r"<code>\2</code>", html_contents
-        )  # Regex to spot code tag in Markdown and convert it to code in HTML
+    html_contents = re.sub(
+        r"(`{1,3})(.*?)\1", r"<code>\2</code>", html_contents
+    )  # Regex to spot code tag in Markdown and convert it to code in HTML
 
-        html_contents = re.sub(
-            r"---+", r"<hr>", html_contents
-        )  # Regex to spot horizontal rule in Markdown and convert it to HTML
+    html_contents = re.sub(
+        r"---+", r"<hr>", html_contents
+    )  # Regex to spot horizontal rule in Markdown and convert it to HTML
 
-        html_contents = re.sub(
-            r"\*\*(.*?)\*\*", r"<strong>\1</strong>", html_contents
-        )  # Regex to spot bold in Markdown and convert the text inside it (group 1) to HTML
+    html_contents = re.sub(
+        r"\*\*(.*?)\*\*", r"<strong>\1</strong>", html_contents
+    )  # Regex to spot bold in Markdown and convert the text inside it (group 1) to HTML
 
-        return html_contents
+    return html_contents
 
 
 def html_processor(
     input_file, stylesheet, lang, sidebar
-):  # TODO: ** ** parsing is not working the way it should. Check out issue #16, which is when it was implemented.
-    # Compare it with refactoring branch
+):
     html_contents = html_creator(input_file, stylesheet, lang, sidebar)
 
-    with open(input_file) as txt:
-        lines = txt.readlines()
+    with open(input_file) as file:
+        lines = file.readlines()
 
     in_paragraph = False  # Flag to track if we are inside a paragraph
     for line in lines:
