@@ -23,6 +23,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Enhancements](#suggesting-enhancements)
   - [Your First Code Contribution](#your-first-code-contribution)
+  - [Writing Tests](#writing-tests)
   - [Improving The Documentation](#improving-the-documentation)
 - [Styleguides](#styleguides)
   - [Commit Messages](#commit-messages)
@@ -175,6 +176,16 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/Pasqua
 include Setup of env, IDE and typical getting started instructions?
 
 -->
+
+### Writing Tests
+If you are writing a new function or simply want to contribute to old code, your code should pass a unit test.
+If you're writing new code, you should use [unittest](https://docs.python.org/3/library/unittest.html#), which is a built-in tester for Python.
+If you're writing a new helper function, for example, please include it in the test_helper.py file in a new class for the function, for organization purposes.
+Otherwise, include it in a test file that is related to the file you made the contribution in.
+If you're contributing to old code or code in general, there is a tester set up in the test_text_to_html.py file. 
+This tester is meant for the entire program, contributions should pass this tester unless otherwise mentioned.
+To run the testers, please use either Visual Studio Code or PyCharm as both IDEs allow you to run it from there instead of on the command-line.
+There is a method to run it on a [command-line](https://docs.python.org/3/library/unittest.html#command-line-interface), but it doesn't seem to work at the moment.
 
 ### Improving The Documentation
 <!-- TODO

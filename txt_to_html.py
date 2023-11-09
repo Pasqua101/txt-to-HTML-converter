@@ -87,8 +87,8 @@ if __name__ == "__main__":
             ) as e:  # If any of the keys are not found in the TOML file, it will exit the program
                 print(f"Error: {e} not found in TOML file.")
                 exit(-1)
-            # text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
-            text_to_html(input_path, stylesheet, output_dir, lang)
+            text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
+
     else:
         stylesheet = (
             args.stylesheet or "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
@@ -98,5 +98,4 @@ if __name__ == "__main__":
         )  # If the user does not enter an output directory, it will assign the directory til
         lang = args.lang or "en-CA"
         sidebar = args.sidebar
-        # text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
-        text_to_html(input_path, stylesheet, output_dir, lang)
+        text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
