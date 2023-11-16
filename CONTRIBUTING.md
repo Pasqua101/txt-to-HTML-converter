@@ -185,7 +185,7 @@ Otherwise, include it in a test file that is related to the file you made the co
 If you're contributing to old code or code in general, there is a tester set up in the test_text_to_html.py file. 
 This tester is meant for the entire program, contributions should pass this tester unless otherwise mentioned.
 To run the testers, please use either Visual Studio Code or PyCharm as both IDEs allow you to run it from there instead of on the command-line.
-There is a method to run it on a [command-line](https://docs.python.org/3/library/unittest.html#command-line-interface), but it doesn't seem to work at the moment.
+There is a method to run it on a [command-line](https://docs.python.org/3/library/unittest.html#command-line-interface), you would have to use this line `python -m unittest discover .\tests\`.
 
 ### Improving The Documentation
 <!-- TODO
