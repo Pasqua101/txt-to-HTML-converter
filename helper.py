@@ -43,8 +43,8 @@ def html_creator(input_file, stylesheet, lang, sidebar):
 
 
 def generate_sidebar(sidebar):
-    if os.path.isfile(
-        sidebar
+    if sidebar.endswith(
+        ".py"
     ):  # while the code reads the table of contents directly from the sidebar file, we still have this check in case
         # the sidebar is removed
         sidebar_html = "\t\tTable of Contents\n\t\t<nav>\n\t\t\t<ul>\n"
