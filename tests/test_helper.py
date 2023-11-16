@@ -5,6 +5,7 @@ import unittest
 from helper import extension_checker, output_file_creator, generate_sidebar
 
 
+
 class TestExtensionChecker(unittest.TestCase):
     def test_extension_checker_txt(self):
         result = extension_checker("1.txt")
