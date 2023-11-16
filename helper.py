@@ -53,7 +53,7 @@ def generate_sidebar(sidebar):
                 sidebar_html += (
                     f'\t\t\t\t<li><a href="{item["url"]}">{item["label"]}</a></li>\n'
                 )
-        sidebar_html += "\t\t\t</ul>\n\t\t</nav>"
+        sidebar_html += "\t\t\t</ul>"
         return sidebar_html
     else:
         print("Sidebar must be a file or was not found")
