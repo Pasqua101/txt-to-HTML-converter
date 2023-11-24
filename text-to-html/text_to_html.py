@@ -1,7 +1,7 @@
 import argparse
 import tomllib
 
-from . import text_to_html as file_processor
+from . import file_processors as fp
 
 VERSION = "1.0"
 
@@ -86,9 +86,7 @@ if __name__ == "__main__":
             ) as e:  # If any of the keys are not found in the TOML file, it will exit the program
                 print(f"Error: {e} not found in TOML file.")
                 exit(-1)
-            file_processor.text_to_html(
-                input_path, stylesheet, output_dir, lang, sidebar
-            )
+            fp.text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
 
     else:
         stylesheet = (
@@ -99,4 +97,4 @@ if __name__ == "__main__":
         )  # If the user does not enter an output directory, it will assign the directory til
         lang = args.lang or "en-CA"
         sidebar = args.sidebar
-        file_processor.text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
+        fp.text_to_html(input_path, stylesheet, output_dir, lang, sidebar)
