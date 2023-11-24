@@ -2,13 +2,7 @@ import os
 import re
 import sys
 
-from helper import (
-    extension_checker,
-    generate_duplicate_filename,
-    html_creator,
-    output_file_creator,
-    remove_output_dir,
-)
+from . import helper as h
 
 
 def text_to_html(
@@ -18,19 +12,19 @@ def text_to_html(
         if os.path.exists(input_path) and os.path.isdir(
             input_path
         ):  # if the user inputted a directory
-            remove_output_dir(output_dir)
+            h.remove_output_dir(output_dir)
             for filename in os.listdir(input_path):
-                extension_check = extension_checker(
+                extension_check = h.extension_checker(
                     filename
                 )  # loops through each file in the directory to check their extension.
                 # Returns True if the extensions matches
                 if extension_check:
                     input_file = os.path.join(input_path, filename)
-                    output_file = output_file_creator(input_file, output_dir)
+                    output_file = h.output_file_creator(input_file, output_dir)
 
                     # Step 1: if the created output file already exists generate a duplicate
                     if os.path.exists(output_file):
-                        output_file = generate_duplicate_filename(
+                        output_file = h.generate_duplicate_filename(
                             output_dir, output_file
                         )
 
@@ -49,13 +43,13 @@ def text_to_html(
 
             sys.exit(0)
 
-        elif extension_checker(input_path) and os.path.isfile(
+        elif h.extension_checker(input_path) and os.path.isfile(
             input_path
         ):  # if the user enters only a file
-            remove_output_dir(output_dir)
+            h.remove_output_dir(output_dir)
 
             input_file = input_path
-            output_file = output_file_creator(input_file, output_dir)
+            output_file = h.output_file_creator(input_file, output_dir)
 
             # Step 1: Start the conversion of the file
             html_contents = html_processor(input_file, stylesheet, lang, sidebar)
@@ -102,10 +96,8 @@ def parse_md(html_contents):
     return html_contents
 
 
-def html_processor(
-    input_file, stylesheet, lang, sidebar
-):
-    html_contents = html_creator(input_file, stylesheet, lang, sidebar)
+def html_processor(input_file, stylesheet, lang, sidebar):
+    html_contents = h.html_creator(input_file, stylesheet, lang, sidebar)
 
     with open(input_file) as file:
         lines = file.readlines()

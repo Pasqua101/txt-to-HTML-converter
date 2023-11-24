@@ -38,7 +38,6 @@ setup(
         "toml",
     ],
     classifiers=[
-        "Development Status :: 1 - Production",
         "Programming Language :: Python :: 3.11",
         "Operating System :: Microsoft :: Windows",
     ],

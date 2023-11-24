@@ -2,7 +2,7 @@ import os
 import sys
 from shutil import rmtree
 
-from sidebar import table_of_contents
+from . import sidebar as sb
 
 
 def remove_output_dir(
@@ -48,7 +48,7 @@ def generate_sidebar(sidebar):
     ):  # while the code reads the table of contents directly from the sidebar file, we still have this check in case
         # the sidebar is removed
         sidebar_html = "\t\tTable of Contents\n\t\t<nav>\n\t\t\t<ul>\n"
-        for item in table_of_contents:
+        for item in sb.table_of_contents:
             if "label" in item and "url" in item:
                 sidebar_html += (
                     f'\t\t\t\t<li><a href="{item["url"]}">{item["label"]}</a></li>\n'

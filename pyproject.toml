@@ -28,3 +28,26 @@ exclude = [
     "til",
     ".ruff_cache",
 ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "text-to-html-converter-Pasqua_101"
+version = "1.0"
+authors = [
+  { name="Marco Pasqua", email="marco.pasqua03@gmail.com" },
+]
+description = "A package that allows for txt and md conversion to HTML files."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/Pasqua101/txt-to-HTML-converter"
+Issues = "https://github.com/Pasqua101/txt-to-HTML-converter/issues"
