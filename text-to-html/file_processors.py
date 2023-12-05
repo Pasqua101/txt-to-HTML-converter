@@ -92,6 +92,10 @@ def parse_md(html_contents):
     html_contents = re.sub(
         r"\*\*(.*?)\*\*", r"<strong>\1</strong>", html_contents
     )  # Regex to spot bold in Markdown and convert the text inside it (group 1) to HTML
+    
+    html_contents = re.sub(
+        r"\*(.*?)\*", r"<em>\1</em>", html_contents
+    )  # Regex to spot italic in Markdown and convert the text inside it (group 1) to HTML
 
     return html_contents
 
