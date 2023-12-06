@@ -7,6 +7,10 @@ class TestMarkdown(unittest.TestCase):
     def test_convert_bold(self):
         converted_string = parse_md("**Hello World**")
         self.assertEqual(converted_string, "<strong>Hello World</strong>")
+        
+    def test_convert_bold(self):
+        converted_string = parse_md("*Hello World*")
+        self.assertEqual(converted_string, "<em>Hello World</em>")
 
     def test_convert_hr(self):
         converted_string = parse_md("---")
