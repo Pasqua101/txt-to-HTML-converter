@@ -3,7 +3,7 @@ import re
 def parse_md_inline_elements(html_contents):
     html_contents = re.sub(
         r"\[(.+?)\]\(([^ ]+)\)",  # Regex pattern to match .md link syntax and capture the text to display / the link
-        r"<a href=\2>\1</a>",  # Replace all .md links with <a> tags with help from backreferences
+        r'<a href="\2">\1</a>',  # Replace all .md links with <a> tags with help from backreferences
         html_contents,
     )
 
@@ -30,16 +30,22 @@ def parse_md_inline_elements(html_contents):
     return html_contents
 
 def get_code_block(html_content_lines:list[str,]):
-    # print(html_content_lines)
+    '''
+    this function converts multiline code block into html.
+    previously it was done by regex but it was not working properly
+    '''
     html_content = ""
     block_end = 0
     for index, line in enumerate(html_content_lines):
-        if line != '```':
+        if line != '```\n':
             html_content += line
         else:
             block_end = index
             break
-    return f'<code class="block-code">{html_content}</code>', block_end  
+
+    code = f'<pre><code class="block-code">{html_content}</code></pre>'
+
+    return code, block_end  
 
 
 def base_html_template(html_contents:str)->str:
@@ -85,12 +91,12 @@ def md_to_html(input_file)->None:
         index += 1
         if line.startswith("#"):
             line = change_to_heading(line)
-        
+        elif line.startswith("```"):
+            line, skip_to = get_code_block(lines[index:])
+            index = index + skip_to        
 
         html_contents += line
-        
 
-    #     html_contents += "</p>\n"
 
     html_contents = parse_md_inline_elements(html_contents)
 
