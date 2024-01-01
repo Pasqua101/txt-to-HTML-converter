@@ -1,5 +1,9 @@
 import re
 
+# custom library
+from frontmatter import process_md
+# ---
+
 def parse_md_inline_elements(html_contents):
     html_contents = re.sub(
         r"\[(.+?)\]\(([^ ]+)\)",  # Regex pattern to match .md link syntax and capture the text to display / the link
@@ -37,8 +41,8 @@ def get_code_block(html_content_lines:list[str,]):
     html_content = ""
     block_end = 0
     for index, line in enumerate(html_content_lines):
-        if line != '```\n':
-            html_content += line
+        if '```' not in line:
+            html_content += line + '\n'
         else:
             block_end = index
             break
@@ -64,7 +68,7 @@ def base_html_template(html_contents:str)->str:
 
 def write_to_html(output_file, html_contents):
     with open(output_file, "w") as html:
-        html.write(html_contents)
+        html.write(base_html_template(html_contents))
 
 
 
@@ -79,27 +83,37 @@ def change_to_heading(heading:str)-> str:
     heading = heading.strip("\n")
     return f"<h{heading_level}>{heading.strip(' ')}</h{heading_level}>"
 
-def md_to_html(input_file)->None:
-
-    with open(input_file) as file:
-        lines = file.readlines()
+def md_to_html(input_file, have_frontmatter:bool = True)->None:
 
     html_contents:str = ""
     index = 0
+    # frontmatter:dict = {}
+    lines:list[str] = []
+
+    with open(input_file) as file:
+        data = file.read()
+
+    if have_frontmatter :
+        _, content = process_md(data)
+
+        lines.extend(content.split("\n"))
+    
     while index < len(lines):
+        
         line = lines[index]
         index += 1
         if line.startswith("#"):
             line = change_to_heading(line)
         elif line.startswith("```"):
             line, skip_to = get_code_block(lines[index:])
-            index = index + skip_to        
+            index = index + skip_to + 1 
+    
 
         html_contents += line
 
 
     html_contents = parse_md_inline_elements(html_contents)
 
-    write_to_html(input_file.replace(".md", ".html") ,base_html_template(html_contents))
+    write_to_html(input_file.replace(".md", ".html") ,html_contents)
 
-md_to_html(r"D:/PythonVENV/txt-to-HTML-converter/text-to-html/main.md")
+md_to_html(r"D:\PythonVENV\txt-to-HTML-converter\examples\ytdownloader_with_frontmatter.md")
