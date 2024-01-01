@@ -19,10 +19,10 @@ def formatFrontMatter(data: str):
 	frontMatterTextArray = data.split("\n")
 	# print(data)
 	frontMatterTextArray = [seg for seg in frontMatterTextArray if seg]
-	for d in frontMatterTextArray:
-		newText = d.replace(" ", "")
+	for line in frontMatterTextArray:
+		newText = line.strip()
 		newTextArray = newText.split(":")
-		frontMatter[newTextArray[0]] = newTextArray[1].replace('"', "")
+		frontMatter[newTextArray[0]] = newTextArray[1].replace('"', "").strip()
 		
 	return frontMatter
 

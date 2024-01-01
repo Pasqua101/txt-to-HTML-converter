@@ -52,7 +52,7 @@ def get_code_block(html_content_lines:list[str,]):
     return code, block_end  
 
 
-def base_html_template(html_contents:str)->str:
+def base_html_template(html_contents:str, metadata:dict)->str:
     """
     Base template of a html file
     """
@@ -60,15 +60,16 @@ def base_html_template(html_contents:str)->str:
 <!DOCTYPE html>
 <html>
 <head>
-<title>md to html</title>
+<title>{metadata['title']}</title>
+<meta name="description" content="{metadata['description']}" />
 </head>
 <body>{html_contents}</body>
 <html>
 '''
 
-def write_to_html(output_file, html_contents):
+def write_to_html(output_file, html_contents, metadata):
     with open(output_file, "w") as html:
-        html.write(base_html_template(html_contents))
+        html.write(base_html_template(html_contents, metadata))
 
 
 
@@ -87,16 +88,25 @@ def md_to_html(input_file, have_frontmatter:bool = True)->None:
 
     html_contents:str = ""
     index = 0
-    # frontmatter:dict = {}
     lines:list[str] = []
 
+    filename = input_file.split("\\")[-1]
+    filename = filename.replace(".md", "")
+    description = '''This web page is converted from a markdown file to html file using txt-to-HTML-converter python library. https://github.com/dshaw0004/txt-to-HTML-converter follow this url for more info'''
+    metadata:dict = {
+        'title': filename,
+        'description': description
+    }
+
     with open(input_file) as file:
-        data = file.read()
-
-    if have_frontmatter :
-        _, content = process_md(data)
-
-        lines.extend(content.split("\n"))
+        if have_frontmatter :
+            data = file.read()
+            frontmatter, content = process_md(data)
+            metadata['title'] = frontmatter['title'] if frontmatter['title'] else filename
+            metadata['description'] = frontmatter['description'] if frontmatter['description'] else description
+            lines.extend(content.split("\n"))
+        else:
+            lines.extend(file.readlines())
     
     while index < len(lines):
         
@@ -114,6 +124,6 @@ def md_to_html(input_file, have_frontmatter:bool = True)->None:
 
     html_contents = parse_md_inline_elements(html_contents)
 
-    write_to_html(input_file.replace(".md", ".html") ,html_contents)
+    write_to_html(input_file.replace(".md", ".html") ,html_contents, metadata)
 
-md_to_html(r"D:\PythonVENV\txt-to-HTML-converter\examples\ytdownloader_with_frontmatter.md")
+md_to_html(r"D:\PythonVENV\txt-to-HTML-converter\examples\ytdownloader_with_frontmatter.md", have_frontmatter=True)
