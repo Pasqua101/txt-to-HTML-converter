@@ -179,7 +179,3 @@ You can get the code at my github following this [link](https://github.com/dshaw
 
 Here the link of the post by 'Shittu Olumide' whose code I use.
 [click here](https://dev.to/shittu_olumide_/how-to-download-youtube-music-and-videos-with-python-37k5)
-
-title: "YTdownloader"
-description: "youtube video downloader made by using python"
-pubDate: "Feb 11 2023"
