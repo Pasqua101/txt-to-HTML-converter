@@ -126,4 +126,6 @@ def md_to_html(input_file, have_frontmatter:bool = True)->None:
 
     write_to_html(input_file.replace(".md", ".html") ,html_contents, metadata)
 
-md_to_html(r"D:\PythonVENV\txt-to-HTML-converter\examples\ytdownloader_with_frontmatter.md", have_frontmatter=True)
+
+if __name__ == "__main__":
+    md_to_html(r"D:\PythonVENV\txt-to-HTML-converter\examples\ytdownloader_with_frontmatter.md", have_frontmatter=True)
